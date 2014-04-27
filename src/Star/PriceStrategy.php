@@ -19,6 +19,8 @@ interface PriceStrategy
     /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return ProductCollection The non-processed products
      */
     public function buy(Customer $customer, ProductCollection $collection);
 }

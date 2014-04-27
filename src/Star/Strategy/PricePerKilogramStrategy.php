@@ -36,12 +36,16 @@ class PricePerKilogramStrategy implements PriceStrategy
     /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return \Star\ProductCollection
      */
     public function buy(Customer $customer, ProductCollection $collection)
     {
         foreach ($collection->toArray() as $product) {
             $customer->removeMoney($product->getWeight() * $this->price);
         }
+
+        return new ProductCollection();
     }
 }
  

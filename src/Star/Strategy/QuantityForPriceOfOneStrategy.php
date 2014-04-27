@@ -21,18 +21,48 @@ use Star\ProductCollection;
 class QuantityForPriceOfOneStrategy implements PriceStrategy
 {
     /**
+     * @var int
+     */
+    private $quantity;
+
+    /**
+     * @param int $quantity
+     */
+    public function __construct($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return \Star\ProductCollection
      */
     public function buy(Customer $customer, ProductCollection $collection)
     {
-        $i = 0;
+        if (count($collection->toArray()) < $this->quantity) {
+            return $collection;
+        }
+
+        $i = 1;
+        $amount = 0;
+        $unProcessedProducts = new ProductCollection();
+
         foreach ($collection->toArray() as $product) {
-            if ($i % 2 != 0) {
-                $customer->removeMoney($product->getBasePrice());
+            if ($i == $this->quantity) {
+                $amount += $product->getBasePrice();
             }
+
+            if ($i > $this->quantity) {
+                $unProcessedProducts->addProduct($product);
+            }
+
             $i ++;
         }
+        $customer->removeMoney($amount);
+
+        return $this->buy($customer, $unProcessedProducts);
     }
 }
  

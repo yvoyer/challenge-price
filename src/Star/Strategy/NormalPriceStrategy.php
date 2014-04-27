@@ -23,12 +23,16 @@ class NormalPriceStrategy implements PriceStrategy
     /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return \Star\ProductCollection
      */
     public function buy(Customer $customer, ProductCollection $collection)
     {
         foreach ($collection->toArray() as $product) {
             $customer->removeMoney($product->getBasePrice());
         }
+
+        return new ProductCollection();
     }
 }
  

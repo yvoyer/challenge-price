@@ -31,44 +31,45 @@ class QuantityForPriceStrategy implements PriceStrategy
     private $price;
 
     /**
-     * @var PriceStrategy
-     */
-    private $remainingProductStrategy;
-
-    /**
      * @param int $quantity
      * @param int $price
-     * @param \Star\PriceStrategy $remainingProductStrategy
      */
-    public function __construct($quantity, $price, PriceStrategy $remainingProductStrategy)
+    public function __construct($quantity, $price)
     {
         $this->quantity = $quantity;
         $this->price = $price;
-        $this->remainingProductStrategy = $remainingProductStrategy;
     }
 
     /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return ProductCollection
      */
     public function buy(Customer $customer, ProductCollection $collection)
     {
         if (count($collection->toArray()) < $this->quantity) {
-            $this->remainingProductStrategy->buy($customer, $collection);
-            return;
+            return $collection;
         }
 
-        $i = 0;
+        $i = 1;
+        $amount = 0;
         $unProcessedProducts = new ProductCollection();
+
         foreach ($collection->toArray() as $product) {
-            if ($i >= $this->quantity) {
+            if ($i == $this->quantity) {
+                $amount += $this->price;
+            }
+
+            if ($i > $this->quantity) {
                 $unProcessedProducts->addProduct($product);
             }
+
             $i ++;
         }
+        $customer->removeMoney($amount);
 
-        $customer->removeMoney($this->price);
-        $this->buy($customer, $unProcessedProducts);
+        return $this->buy($customer, $unProcessedProducts);
     }
 }
  

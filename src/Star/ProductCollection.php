@@ -26,9 +26,7 @@ class ProductCollection
      */
     public function __construct($products = array())
     {
-        foreach ($products as $product) {
-            $this->addProduct($product);
-        }
+        $this->addProducts($products);
     }
 
     /**
@@ -37,6 +35,16 @@ class ProductCollection
     public function addProduct(Product $product)
     {
         $this->elements[] = $product;
+    }
+
+    /**
+     * @param array $products
+     */
+    public function addProducts(array $products)
+    {
+        foreach ($products as $product) {
+            $this->addProduct($product);
+        }
     }
 
     /**

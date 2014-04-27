@@ -21,5 +21,5 @@ Feature: Calculate product prices
   Scenario: 5 - 2$ per kilo
     Then The customer should have 6.00$
 
-  Scenario: 6 - 3 for the price of 1, remaining at base price
+  Scenario: 6 - 4 for the price of 1, remaining at base price
     Then The customer should have 16.00$

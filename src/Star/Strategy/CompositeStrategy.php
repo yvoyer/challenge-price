@@ -38,12 +38,16 @@ class CompositeStrategy implements PriceStrategy
     /**
      * @param Customer $customer
      * @param ProductCollection $collection
+     *
+     * @return ProductCollection The non-processed products
      */
     public function buy(Customer $customer, ProductCollection $collection)
     {
         foreach ($this->strategies as $strategy) {
-            $strategy->buy($customer, $collection);
+            $collection = $strategy->buy($customer, $collection);
         }
+
+        return $collection;
     }
 
     /**

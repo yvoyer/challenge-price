@@ -65,14 +65,23 @@ class PriceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expectedPrice, $this->customer->getCash());
     }
 
-    public function provideData()
+    public static function provideData()
     {
         $scenario1 = new NormalPriceStrategy();
         $scenario2 = new SecondWithPercentRebateStrategy(50);
-        $scenario3 = new QuantityForPriceStrategy(5, 3.00, new NormalPriceStrategy());
-        $scenario4 = new QuantityForPriceStrategy(3, 2.00, new PercentRebateStrategy(50));
+        $scenario3 = new CompositeStrategy(array(
+            new QuantityForPriceStrategy(5, 3.00),
+            new NormalPriceStrategy(),
+        ));
+        $scenario4 = new CompositeStrategy(array(
+            new QuantityForPriceStrategy(3, 2.00),
+            new PercentRebateStrategy(50),
+        ));
         $scenario5 = new PricePerKilogramStrategy(.25);
-        $scenario6 = new QuantityForPriceOfOneStrategy(3);
+        $scenario6 = new CompositeStrategy(array(
+            new QuantityForPriceOfOneStrategy(4),
+            new NormalPriceStrategy(),
+        ));
 
         return array(
             array(13.00, $scenario1),
@@ -80,7 +89,7 @@ class PriceTest extends \PHPUnit_Framework_TestCase
             array(15.00, $scenario3),
             array(15.50, $scenario4),
             array(16.50, $scenario5),
-            array(17.00, $scenario6),
+            array(16.00, $scenario6),
         );
     }
 }

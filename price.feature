@@ -1,7 +1,7 @@
 Feature: Calculate product prices
 
   Background:
-    Given I have a product with a base price of 1$ and a weight of 1 kilo each
+    Given I have a product with a base price of 1$ and a weight of 2 kilo each
     And The customer has 20.00$
     And I have 7 products
     When The customer does a transaction

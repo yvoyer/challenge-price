@@ -45,6 +45,5 @@ class Product
     {
         return $this->weight;
     }
-
 }
  

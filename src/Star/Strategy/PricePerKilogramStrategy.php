@@ -8,7 +8,7 @@
 namespace Star\Strategy;
 
 use Star\Customer;
-use Star\PriceStrategy;
+use Star\PurchaseStrategy;
 use Star\ProductCollection;
 
 /**
@@ -18,19 +18,19 @@ use Star\ProductCollection;
  *
  * @package Star\Strategy
  */
-class PricePerKilogramStrategy implements PriceStrategy
+class PricePerKilogramStrategy implements PurchaseStrategy
 {
     /**
      * @var int
      */
-    private $price;
+    private $pricePerKilo;
 
     /**
-     * @param int $price
+     * @param int $pricePerKilo
      */
-    public function __construct($price)
+    public function __construct($pricePerKilo)
     {
-        $this->price = $price;
+        $this->pricePerKilo = $pricePerKilo;
     }
 
     /**
@@ -42,7 +42,7 @@ class PricePerKilogramStrategy implements PriceStrategy
     public function buy(Customer $customer, ProductCollection $collection)
     {
         foreach ($collection->toArray() as $product) {
-            $customer->removeMoney($product->getWeight() * $this->price);
+            $customer->removeMoney($product->getWeight() * $this->pricePerKilo);
         }
 
         return new ProductCollection();

@@ -8,7 +8,7 @@
 namespace Star\Strategy;
 
 use Star\Customer;
-use Star\PriceStrategy;
+use Star\PurchaseStrategy;
 use Star\ProductCollection;
 
 /**
@@ -18,7 +18,7 @@ use Star\ProductCollection;
  *
  * @package Star\Strategy
  */
-class PercentRebateStrategy implements PriceStrategy
+class PercentRebateStrategy implements PurchaseStrategy
 {
     /**
      * @var int

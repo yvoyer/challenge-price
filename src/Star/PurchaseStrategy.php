@@ -8,13 +8,13 @@
 namespace Star;
 
 /**
- * Class PriceStrategy
+ * Class PurchaseStrategy
  *
  * @author  Yannick Voyer (http://github.com/yvoyer)
  *
  * @package Star
  */
-interface PriceStrategy
+interface PurchaseStrategy
 {
     /**
      * @param Customer $customer

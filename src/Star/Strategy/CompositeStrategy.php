@@ -8,7 +8,7 @@
 namespace Star\Strategy;
 
 use Star\Customer;
-use Star\PriceStrategy;
+use Star\PurchaseStrategy;
 use Star\ProductCollection;
 
 /**
@@ -18,10 +18,10 @@ use Star\ProductCollection;
  *
  * @package Star\Strategy
  */
-class CompositeStrategy implements PriceStrategy
+class CompositeStrategy implements PurchaseStrategy
 {
     /**
-     * @var PriceStrategy[]
+     * @var PurchaseStrategy[]
      */
     private $strategies = array();
 
@@ -51,9 +51,9 @@ class CompositeStrategy implements PriceStrategy
     }
 
     /**
-     * @param PriceStrategy $strategy
+     * @param PurchaseStrategy $strategy
      */
-    public function addStrategy(PriceStrategy $strategy)
+    public function addStrategy(PurchaseStrategy $strategy)
     {
         $this->strategies[] = $strategy;
     }
